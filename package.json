@@ -1,0 +1,17 @@
+{
+  "name": "stats",
+  "version": "1.0.0",
+  "description": "McMMO Stats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hunter Keca <hunterkeca@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0",
+    "mysql-model": "0.0.2"
+  }
+}

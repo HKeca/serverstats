@@ -1,0 +1,54 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto Mono", monospace;
+}
+
+.title {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.playerStats {
+    margin: 0 35%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+}
+
+.playerStats {
+    font-size: 1.2em;
+}
+
+strong {
+    font-weight: 600;
+}
+
+.link {
+    text-decoration: none;
+    color: blue;
+}
+
+.details {
+    outline: none;
+    list-style: none;
+    padding: 15px;
+    display: none;
+}
+
+.details-view {
+    display: block;
+    position: absolute;
+    background: white;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.1);
+}
