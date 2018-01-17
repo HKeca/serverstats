@@ -24,25 +24,25 @@
             <% for(let i = 0; i < players.length; i++) {%>
             <div class="playerStats">
                 <p>
-                    <strong><%= players[i].user %>:</strong> <%= powerLevels[i] %>
+                    <strong><%= players[i].name %>:</strong> <%= players[i].getPowerLevel() %>
                 </p>
                 <div>
                     <a href="#" class="link">[+]</a>
 
                     <ul tabindex="0" class="details" onblur="closeEl(this);">
-                        <li>Taming: <%= playerStats[i + 1].taming %></li>
-                        <li>Mining: <%= playerStats[i + 1].mining %></li>
-                        <li>Woodcutting: <%= playerStats[i + 1].woodcutting %></li>
-                        <li>Repair: <%= playerStats[i + 1].repair %></li>
-                        <li>Unarmed: <%= playerStats[i + 1].unarmed %></li>
-                        <li>Herbalism: <%= playerStats[i + 1].herbalism %></li>
-                        <li>Excavation: <%= playerStats[i + 1].excavation %></li>
-                        <li>Archery: <%= playerStats[i + 1].archery %></li>
-                        <li>Swords: <%= playerStats[i + 1].swords %></li>
-                        <li>Axes: <%= playerStats[i + 1].axes %></li>
-                        <li>Acrobatics: <%= playerStats[i + 1].acrobatics %></li>
-                        <li>Fishing: <%= playerStats[i + 1].fishing %></li>
-                        <li>Alchemy: <%= playerStats[i + 1].alchemy %></li>
+                        <li>Taming: <%= players[i].points.taming %></li>
+                        <li>Mining: <%= players[i].points.mining %></li>
+                        <li>Woodcutting: <%= players[i].points.woodcutting %></li>
+                        <li>Repair: <%= players[i].points.repair %></li>
+                        <li>Unarmed: <%= players[i].points.unarmed %></li>
+                        <li>Herbalism: <%= players[i].points.herbalism %></li>
+                        <li>Excavation: <%= players[i].points.excavation %></li>
+                        <li>Archery: <%= players[i].points.archery %></li>
+                        <li>Swords: <%= players[i].points.swords %></li>
+                        <li>Axes: <%= players[i].points.axes %></li>
+                        <li>Acrobatics: <%= players[i].points.acrobatics %></li>
+                        <li>Fishing: <%= players[i].points.fishing %></li>
+                        <li>Alchemy: <%= players[i].points.alchemy %></li>
                     </ul>
                 </div>
             </div>
