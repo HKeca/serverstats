@@ -9,49 +9,65 @@ let connection = mysql.createConnection(serverConfig);
 
 connection.connect();
 
-var playersList = [];
-var points = [];
+let sortLevels = (list) => {
+    list.sort((a, b) => {
+        let aPowerLevel = a.getPowerLevel();
+        let bPowerLevel = b.getPowerLevel();
 
-let createPlayers = () => {
-    connection.query("SELECT * FROM mcmmo_users", (err, results) => {
-        if (err) throw error;
-        results.forEach((player) => {
-            let tmpStats = points["player-" + player.id];
-            if (!tmpStats)
-                return;
+        if (aPowerLevel < bPowerLevel) {
+            return 1;
+        }
+        else if (aPowerLevel > bPowerLevel) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+}
 
-            let newPlayer = new Player(player.user, tmpStats);
+// Player Data
+let getPlayers = (points) => {
+    return new Promise((resolve, reject) => {
+        let playersList = []; 
 
-            playersList.push(newPlayer);
-        });
+        connection.query("SELECT * FROM mcmmo_users", (err, results) => {
+            if (err) throw error;
+            results.forEach((player) => {
+                let tmpStats = points["player-" + player.id];
+                if (!tmpStats)
+                    return;
 
-        // Sort by bigger power level
-        playersList.sort((a, b) => {
-            let aPowerLevel = a.getPowerLevel();
-            let bPowerLevel = b.getPowerLevel();
+                let newPlayer = new Player(player.user, tmpStats);
 
-            if (aPowerLevel < bPowerLevel) {
-                return 1;
-            }
-            else if (aPowerLevel > bPowerLevel) {
-                return -1;
-            } else {
-                return 0;
-            }
+                playersList.push(newPlayer);
+            });
+
+            // Sort by bigger power level
+            sortLevels(playersList);
+
+            resolve(playersList);
         });
     });
+    
 };
 
 
-connection.query("SELECT * FROM mcmmo_skills", (err, results) => {
-    if (err) throw error;
-    results.forEach((playerPoints) => {
-        points["player-" + playerPoints.user_id] = playerPoints;
+let getPlayerPoints = () => {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM mcmmo_skills", (err, results) => {
+            if (err) throw error;
+
+            let points = [];
+
+            results.forEach((playerPoints) => {
+                points["player-" + playerPoints.user_id] = playerPoints;
+            });
+
+            resolve(points);
+        });
     });
-
-    createPlayers();
-});
-
+    
+}
 
 // config
 app.set('view engine', 'ejs');
@@ -59,8 +75,15 @@ app.use('/assets', express.static('static'));
 
 const PORT = 8000;
 
+// App responses/routes
 app.get("/", (req, res) => {
-    res.render('index', {players: playersList});
+    getPlayerPoints()
+    .then(points => {
+        getPlayers(points)
+        .then(players => {
+            res.render('index', {players: players});
+        });
+    });
 });
 
 app.listen(PORT, () => {
