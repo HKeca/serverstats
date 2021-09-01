@@ -79,7 +79,7 @@ let getPlayerPoints = () => {
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('static'));
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // App responses/routes
 app.get("/", (req, res) => {
